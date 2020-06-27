@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">看电影</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">看电影</string>
+    <string name="nav_header_subtitle">界面测试版</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">版本</string>
+
+    <string name="menu_home">热门</string>
+    <string name="menu_gallery">浏览全部</string>
+    <string name="menu_slideshow">个人中心</string>
+
+    <string name="home_second">Home Second</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    add_moive.xml-->
+    <string name="isbn">用户id</string>
+    <string name="price">用户价格</string>
+
+    <string name="bookname">用户名称</string>
+
+    <string name="scan">扫描</string>
+    <string name="press">出版社</string>
+    <string name="publishertime">出生年月</string>
+
+
+    <string name="category1">职业</string>
+    <string name="category2">用户分类2</string>
+    <string name="picture">选择头像</string>
+
+    <string name="bookintroduce">自我介绍</string>
+    <string name="comment">用户评价</string>
+    <string name="recommend">喜欢的电影类型</string>
+    <string name="recommend1">剧情</string>
+    <string name="recommend2">科幻</string>
+    <string name="recommend3">爱情</string>
+    <string name="issell">性别</string>
+    <string name="yes">男</string>
+    <string name="no">女</string>
+    <string name="save">保存</string>
+    <string name="clear">清空</string>
+    <string name="exit">退出</string>
+    <string name="bookcategory">请选择用户分类</string>
+    <string-array name="bookcategory1">
+        <item>计算机</item>
+        <item>生产</item>
+        <item>金融</item>
+        <item>医疗</item>
+    </string-array>
+
+    <!--    add_moive.xml-->
+</resources>
