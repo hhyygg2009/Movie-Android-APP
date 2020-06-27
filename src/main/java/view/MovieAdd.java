@@ -1,6 +1,6 @@
 package view;
 
-import model.Movie;
+import generate.Movie;
 import model.MovieDAO;
 
 import javax.swing.*;
