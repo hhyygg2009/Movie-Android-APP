@@ -1,7 +1,7 @@
 package view;
 
+import generate.Movie;
 import model.BaseDao;
-import model.Movie;
 import model.MovieDAO;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
