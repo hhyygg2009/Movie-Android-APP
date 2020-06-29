@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yu.seemovie.DAO.MovieDAO;
 import com.yu.seemovie.R;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -85,10 +86,13 @@ public class gallery_moive extends Fragment {
     class gallery_moive_recycle_view extends RecyclerView.Adapter<gallery_moive_recycle_view.viewholder> {
 
         Activity activity;
+        List<Map<String, Object>> movies;
+
 
         public gallery_moive_recycle_view(Activity activity) {
             super();
             this.activity = activity;
+            movies = new MovieDAO(activity).getSectionMovie(0, 5);
         }
 
         @NonNull
@@ -104,7 +108,7 @@ public class gallery_moive extends Fragment {
         public void onBindViewHolder(@NonNull final viewholder holder, final int position) {
 
 
-            Map movie = MovieDAO.movies.get(position);
+            final Map movie = movies.get(position);
             holder.mMoivepic.setImageResource((int) movie.get("img"));
             holder.mMoiveName.setText((String) movie.get("text"));
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -112,8 +116,8 @@ public class gallery_moive extends Fragment {
                 public void onClick(View v) {
                     NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("position", position);
-                    bundle.putInt("mode", 1);
+                    bundle.putInt("id", (int) movie.get("id"));
+//                    bundle.putInt("mode", 1);
                     navController.navigate(R.id.detailFragment, bundle);
 
                 }
@@ -123,7 +127,7 @@ public class gallery_moive extends Fragment {
 
         @Override
         public int getItemCount() {
-            return new MovieDAO(getActivity()).movies.size();
+            return movies.size();
         }
 
         public class viewholder extends RecyclerView.ViewHolder {

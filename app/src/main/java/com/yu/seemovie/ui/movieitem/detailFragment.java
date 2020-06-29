@@ -118,8 +118,8 @@ public class detailFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_home_moiveitem_detail, container, false);
         if (getArguments() != null) {
-            position = getArguments().getInt("position");
-            movie = MovieDAO.movies.get(position);
+
+            movie = new MovieDAO(getContext()).getMovieById(getArguments().getInt("id"));
         }
 
 
