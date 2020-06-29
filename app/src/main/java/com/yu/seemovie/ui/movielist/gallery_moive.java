@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,12 +16,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.yu.seemovie.DAO.MovieDAO;
 import com.yu.seemovie.R;
 
 import java.util.List;
 import java.util.Map;
+
+import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING;
+import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_SETTLING;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +42,11 @@ public class gallery_moive extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView mRecycleview;
+    private SwipeRefreshLayout mSwiperefresh;
+    private int start;
+    private int count;
+    private List<Map<String, Object>> movies;
+    private boolean havenewmovie;
 
     public gallery_moive() {
         // Required empty public constructor
@@ -68,6 +79,8 @@ public class gallery_moive extends Fragment {
         }
     }
 
+    private galleryMoiverecycleviewAdapter gallery_moiverecycleviewadapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,7 +88,27 @@ public class gallery_moive extends Fragment {
         View view = inflater.inflate(R.layout.recycleviewwithswiprefresh, container, false);
         mRecycleview = view.findViewById(R.id.recyclerview);
         mRecycleview.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        mRecycleview.setAdapter(new gallery_moive_recycle_view(getActivity()));
+        gallery_moiverecycleviewadapter = new galleryMoiverecycleviewAdapter(getActivity());
+        mRecycleview.setAdapter(gallery_moiverecycleviewadapter);
+
+        mSwiperefresh = view.findViewById(R.id.swiperefresh);
+        mSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                start = 0;
+                movies.clear();
+                movies = new MovieDAO(getContext()).getSectionMovie(start, count);
+                start = movies.size();
+                gallery_moiverecycleviewadapter.notifyDataSetChanged();
+                mSwiperefresh.setRefreshing(false);
+            }
+        });
+        mRecycleview.setOnScrollListener(new onLoadMoreListener() {
+            @Override
+            protected void onLoading(int countItem, int lastItem) {
+                loadmore();
+            }
+        });
 
 
         return view;
@@ -83,54 +116,104 @@ public class gallery_moive extends Fragment {
     }
 
 
-    class gallery_moive_recycle_view extends RecyclerView.Adapter<gallery_moive_recycle_view.viewholder> {
+    public void loadmore() {
+        List<Map<String, Object>> newmovies = new MovieDAO(getContext()).getSectionMovie(start, count);
+        if (newmovies.size() == 0)
+            havenewmovie = false;
+        else {
+            movies.addAll(newmovies);
+            start = movies.size();
+            gallery_moiverecycleviewadapter.notifyDataSetChanged();
+            havenewmovie = true;
+        }
+
+
+    }
+
+
+    class galleryMoiverecycleviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         Activity activity;
-        List<Map<String, Object>> movies;
 
 
-        public gallery_moive_recycle_view(Activity activity) {
+        private final static int TYPE_CONTENT = 0;//正常内容
+        private final static int TYPE_FOOTER = 1;//下拉刷新
+
+        public galleryMoiverecycleviewAdapter(Activity activity) {
             super();
             this.activity = activity;
-            movies = new MovieDAO(activity).getSectionMovie(0, 5);
+            start = 0;
+            count = 4;
+            movies = new MovieDAO(activity).getSectionMovie(start, count);
+            start = movies.size();
+
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position == movies.size()) {
+                return TYPE_FOOTER;
+            }
+            return TYPE_CONTENT;
         }
 
         @NonNull
         @Override
-        public viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_gallery_moivelist_item, null);
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_gallery_moivelist_item, null);
+//
+//            return new movieItemViewholder(v);
 
-            return new viewholder(v);
-        }
+            if (viewType == TYPE_FOOTER) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_gallery_moivelist_item_foot, parent, false);
+                return new FootViewHolder(view);
+            } else {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_gallery_moivelist_item, null);
+                return new movieItemViewholder(view);
+            }
 
-
-        @Override
-        public void onBindViewHolder(@NonNull final viewholder holder, final int position) {
-
-
-            final Map movie = movies.get(position);
-            holder.mMoivepic.setImageResource((int) movie.get("img"));
-            holder.mMoiveName.setText((String) movie.get("text"));
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("id", (int) movie.get("id"));
-//                    bundle.putInt("mode", 1);
-                    navController.navigate(R.id.detailFragment, bundle);
-
-                }
-            });
         }
 
 
         @Override
         public int getItemCount() {
-            return movies.size();
+            return movies.size() + 1;
         }
 
-        public class viewholder extends RecyclerView.ViewHolder {
+        @Override
+        public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewholder, final int position) {
+            if (getItemViewType(position) == TYPE_FOOTER) {
+                FootViewHolder holder = (FootViewHolder) viewholder;
+                if (havenewmovie) {
+                    holder.mLoadcomplere.setVisibility(LinearLayout.VISIBLE);
+                    holder.mLoadmore.setVisibility(LinearLayout.INVISIBLE);
+                } else {
+                    holder.mLoadcomplere.setVisibility(LinearLayout.INVISIBLE);
+                    holder.mLoadmore.setVisibility(LinearLayout.VISIBLE);
+                }
+
+
+            } else {
+
+                final Map movie = movies.get(position);
+                movieItemViewholder holder = (movieItemViewholder) viewholder;
+                holder.mMoivepic.setImageResource((int) movie.get("img"));
+                holder.mMoiveName.setText((String) movie.get("text"));
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("id", (int) movie.get("id"));
+//                    bundle.putInt("mode", 1);
+                        navController.navigate(R.id.detailFragment, bundle);
+
+                    }
+                });
+            }
+        }
+
+        public class movieItemViewholder extends RecyclerView.ViewHolder {
 
             public ImageView mMoivepic;
             public TextView mMoiveName;
@@ -139,7 +222,7 @@ public class gallery_moive extends Fragment {
             public TextView mTextView7;
             public TextView mTextView10;
 
-            public viewholder(@NonNull View itemView) {
+            public movieItemViewholder(@NonNull View itemView) {
                 super(itemView);
 
                 mMoivepic = itemView.findViewById(R.id.moviepic);
@@ -153,8 +236,77 @@ public class gallery_moive extends Fragment {
             }
 
         }
+
+        private class FootViewHolder extends RecyclerView.ViewHolder {
+            private ProgressBar mProgressBar;
+
+            private LinearLayout mLoadmore;
+
+            private LinearLayout mLoadcomplere;
+
+            public FootViewHolder(View view) {
+                super(view);
+
+                mProgressBar = view.findViewById(R.id.progressBar);
+
+
+                mLoadmore = view.findViewById(R.id.loadmore);
+
+                mLoadcomplere = view.findViewById(R.id.loadcomplere);
+            }
+        }
     }
 
 }
 
 
+abstract class onLoadMoreListener extends RecyclerView.OnScrollListener {
+    private int countItem;
+    private int lastItem;
+    private boolean isScolled = false;//是否可以滑动
+    private RecyclerView.LayoutManager layoutManager;
+
+    /**
+     * 加载回调方法
+     *
+     * @param countItem 总数量
+     * @param lastItem  最后显示的position
+     */
+    protected abstract void onLoading(int countItem, int lastItem);
+
+    @Override
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+    /* 测试这三个参数的作用
+       if (newState==SCROLL_STATE_IDLE){
+           Log.d("test","SCROLL_STATE_IDLE,空闲");
+       }
+       else if (newState==SCROLL_STATE_DRAGGING){
+           Log.d("test","SCROLL_STATE_DRAGGING,拖拽");
+       }
+       else if (newState==SCROLL_STATE_SETTLING){
+           Log.d("test","SCROLL_STATE_SETTLING,固定");
+       }
+       else{
+           Log.d("test","其它");
+       }*/
+        //拖拽或者惯性滑动时isScolled设置为true
+        if (newState == SCROLL_STATE_DRAGGING || newState == SCROLL_STATE_SETTLING) {
+            isScolled = true;
+        } else {
+            isScolled = false;
+        }
+
+    }
+
+    @Override
+    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+            layoutManager = recyclerView.getLayoutManager();
+            countItem = layoutManager.getItemCount();
+            lastItem = ((LinearLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
+        }
+        if (isScolled && countItem != lastItem && lastItem == countItem - 1) {
+            onLoading(countItem, lastItem);
+        }
+    }
+}

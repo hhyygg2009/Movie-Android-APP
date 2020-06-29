@@ -9,30 +9,20 @@ import java.util.Map;
 import java.util.Vector;
 
 public class staticdata {
-    public static List<Integer> banners;
 
-    public staticdata() {
-        initBanner();
-    }
 
-    public static List<Integer> getBanners() {
-        return banners;
-    }
-
-    public void initBanner() {
-
+    public List<Integer> getBanners() {
+        List<Integer> banners;
         banners = new ArrayList<Integer>();
         banners.add(R.drawable.banner__1_);
         banners.add(R.drawable.banner__2_);
         banners.add(R.drawable.banner__3_);
-//        Log.i(TAG, "initData: "+moives.size());
+        return banners;
     }
 
-    private List loadMoviesViaStr() {
+    public List loadMoviesViaStr() {
 
         List movies = new Vector<Map<String, Object>>();
-
-
         Map<String, Object> map;
         map = new HashMap<>();
         map.put("text", "电影1");

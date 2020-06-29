@@ -66,8 +66,7 @@ public class HomeFragment extends Fragment {
     class bannerAdapter extends PagerAdapter {
 
 
-        private List<Integer> banners = staticdata.banners;
-
+        private List<Integer> banners = new staticdata().getBanners();
 //        private ImageView mHomebanner;
 
 
