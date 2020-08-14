@@ -6,10 +6,10 @@
     app:startDestination="@+id/nav_home">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.yu.seemovie.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home">
+            android:id="@+id/nav_home"
+            android:name="com.yu.seemovie.ui.home.IndexFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home">
 
 
     </fragment>
@@ -27,10 +27,10 @@
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow_my" />
     <fragment
-        android:id="@+id/recycleViewFragment"
-        android:name="com.yu.seemovie.ui.home.RecycleViewFragment"
-        android:label="fragment_recycle_view"
-        tools:layout="@layout/recycleview" />
+            android:id="@+id/recycleViewFragment"
+            android:name="com.yu.seemovie.ui.home.LastestMovieRecycleViewFragment"
+            android:label="fragment_recycle_view"
+            tools:layout="@layout/recycleview" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.yu.seemovie.ui.movieitem.detailFragment"

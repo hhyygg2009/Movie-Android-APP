@@ -4,19 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
-import com.yu.seemovie.DAO.MovieDAO;
+import com.yu.seemovie.DAO.MovieDAODB;
 import com.yu.seemovie.R;
 
 import java.util.Map;
@@ -79,15 +72,15 @@ public class RatingFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_home_moiveitem_rating, container, false);
 
 
-        mMoivepic = view.findViewById(R.id.moviepic);
+        mMoivepic = view.findViewById(R.id.movie_pic);
         mMoiveName = view.findViewById(R.id.moive_name);
-        mTextView3 = view.findViewById(R.id.textView3);
-        mRatingBar = view.findViewById(R.id.ratingBar);
+        mTextView3 = view.findViewById(R.id.tv_rating);
+        mRatingBar = view.findViewById(R.id.movie_ratingBar);
         mEditText = view.findViewById(R.id.editText);
         mPost = view.findViewById(R.id.post);
 
         int position = getArguments().getInt("position");
-        Map movie = new MovieDAO(getActivity()).getMovieById(position);
+        Map movie = new MovieDAODB(getActivity()).getMovieById(position);
 
         mMoiveName.setText((String) movie.get("text"));
         mMoivepic.setImageResource((int) movie.get("img"));

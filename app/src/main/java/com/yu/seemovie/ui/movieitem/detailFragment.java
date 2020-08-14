@@ -1,26 +1,17 @@
 package com.yu.seemovie.ui.movieitem;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.view.*;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
+import com.yu.seemovie.DAO.IMovieDataLoad;
+import com.yu.seemovie.DAO.Movie;
 import com.yu.seemovie.DAO.MovieDAO;
+import com.yu.seemovie.DAO.MovieDataManage;
 import com.yu.seemovie.R;
 
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -28,14 +19,16 @@ import java.util.Random;
  * Use the {@link detailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class detailFragment extends Fragment {
+public class detailFragment extends Fragment implements IMovieDataLoad {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
     public static int READ = 0, WRITE = 1, ADD = 3, ALTER = 4, DEL = 5;
     // TODO: Rename and change types of parameters
-    Map movie;
+//    Map movie;
+    MovieDAO moviedao;
+
     int position;
     private ImageView mMoivepic;
     private TextView mMoiveName;
@@ -43,6 +36,7 @@ public class detailFragment extends Fragment {
     private Button mWant;
     private Button mRate;
     private TextView mInfo;
+    Movie movie;
 
     public detailFragment() {
         // Required empty public constructor
@@ -113,29 +107,39 @@ public class detailFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    private MovieDataManage movieDataManage;
+
+    public void RefreshMovieData() {
+        movie = movieDataManage.movies.get(0);
+        mMoiveName.setText(movie.getTitle());
+        mMoivepic.setImageResource(R.drawable.cover__1_);
+        mInfo.setText(movie.getStory() != null ? movie.getStory() : "待补充...");
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_home_moiveitem_detail, container, false);
         if (getArguments() != null) {
+//            moviedao=new MovieDAO(null);
+//            moviedao.MovieLoadById(getArguments().getInt("id"),this);
+            movieDataManage = new MovieDataManage(this);
+            MovieDAO.getMovieById(getArguments().getInt("id"), movieDataManage);
 
-            movie = new MovieDAO(getContext()).getMovieById(getArguments().getInt("id"));
+
+//            movie = new MovieDAODB(getContext()).getMovieById(getArguments().getInt("id"));
+
+
         }
 
 
-        mMoivepic = view.findViewById(R.id.moviepic);
+        mMoivepic = view.findViewById(R.id.movie_pic);
         mMoiveName = view.findViewById(R.id.moive_name);
-        mRatingBar = view.findViewById(R.id.ratingBar);
+        mRatingBar = view.findViewById(R.id.movie_ratingBar);
 
-        mWant = view.findViewById(R.id.want);
-        mRate = view.findViewById(R.id.rate);
-        mInfo = view.findViewById(R.id.info);
-
-        mMoiveName.setText((String) movie.get("text"));
-        mMoivepic.setImageResource((int) movie.get("img"));
-
-
-        mInfo.setText(movie.get("story") != null ? (String) movie.get("story") : "待补充...");
+        mWant = view.findViewById(R.id.btn_want);
+        mRate = view.findViewById(R.id.btn_rate);
+        mInfo = view.findViewById(R.id.movie_story);
 
 
         mRatingBar.setRating(new Random().nextFloat() * 5);
@@ -165,4 +169,5 @@ public class detailFragment extends Fragment {
 
         return view;
     }
+
 }

@@ -18,12 +18,12 @@
             android:padding="20dp" />
 
         <TextView
-            android:id="@+id/textView35"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|center_vertical"
-            android:text="加载更多" />
+                android:id="@+id/textloadmore"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical"
+                android:text="加载更多" />
     </LinearLayout>
 
     <LinearLayout

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -17,12 +16,11 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
+import com.yu.seemovie.DAO.IMovieDataLoad;
+import com.yu.seemovie.DAO.Movie;
 import com.yu.seemovie.DAO.MovieDAO;
+import com.yu.seemovie.DAO.MovieDataManage;
 import com.yu.seemovie.R;
-
-import java.util.List;
-import java.util.Map;
 
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_SETTLING;
@@ -32,24 +30,25 @@ import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_SETTLING;
  * Use the {@link gallery_moive#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class gallery_moive extends Fragment {
+public class gallery_moive extends Fragment implements IMovieDataLoad {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
     private RecyclerView mRecycleview;
     private SwipeRefreshLayout mSwiperefresh;
     private int start;
     private int count;
-    private List<Map<String, Object>> movies;
-    private boolean havenewmovie;
+    //    private List<Map<String, Object>> movies;
+    private boolean LoadFinish;
+    private MovieDataManage movieDataManage;
 
     public gallery_moive() {
         // Required empty public constructor
+        movieDataManage = new MovieDataManage(this);
     }
 
     /**
@@ -73,10 +72,7 @@ public class gallery_moive extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     private galleryMoiverecycleviewAdapter gallery_moiverecycleviewadapter;
@@ -91,22 +87,28 @@ public class gallery_moive extends Fragment {
         gallery_moiverecycleviewadapter = new galleryMoiverecycleviewAdapter(getActivity());
         mRecycleview.setAdapter(gallery_moiverecycleviewadapter);
 
+
         mSwiperefresh = view.findViewById(R.id.swiperefresh);
         mSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                start = 0;
-                movies.clear();
-                movies = new MovieDAO(getContext()).getSectionMovie(start, count);
-                start = movies.size();
-                gallery_moiverecycleviewadapter.notifyDataSetChanged();
-                mSwiperefresh.setRefreshing(false);
+
+                movieDataManage.movies.clear();
+//                movies = new MovieDAODB(getContext()).getSectionMovie(start, count);
+
+                start = movieDataManage.movies.size();
+                MovieDAO.getSelectMovie(start, count, movieDataManage);
+
             }
         });
         mRecycleview.setOnScrollListener(new onLoadMoreListener() {
             @Override
             protected void onLoading(int countItem, int lastItem) {
-                loadmore();
+                MovieDAO.getSelectMovie(start, count, movieDataManage);
+                LoadFinish = false;
+                if (gallery_moiverecycleviewadapter != null)
+                    gallery_moiverecycleviewadapter.notifyDataSetChanged();
+
             }
         });
 
@@ -114,20 +116,19 @@ public class gallery_moive extends Fragment {
         return view;
 
     }
+//    void LoadMore(){
+//        MovieDAO.getSelectMovie(start,count,movieDataManage);
+//
+//
+//    }
 
 
-    public void loadmore() {
-        List<Map<String, Object>> newmovies = new MovieDAO(getContext()).getSectionMovie(start, count);
-        if (newmovies.size() == 0)
-            havenewmovie = false;
-        else {
-            movies.addAll(newmovies);
-            start = movies.size();
-            gallery_moiverecycleviewadapter.notifyDataSetChanged();
-            havenewmovie = true;
-        }
-
-
+    @Override
+    public void RefreshMovieData() {
+        gallery_moiverecycleviewadapter.notifyDataSetChanged();
+        start = movieDataManage.movies.size();
+        mSwiperefresh.setRefreshing(false);
+        LoadFinish = true;
     }
 
 
@@ -144,14 +145,16 @@ public class gallery_moive extends Fragment {
             this.activity = activity;
             start = 0;
             count = 4;
-            movies = new MovieDAO(activity).getSectionMovie(start, count);
-            start = movies.size();
+//            movies = new MovieDAODB(activity).getSectionMovie(start, count);
+            MovieDAO.getSelectMovie(start, count, movieDataManage);
+
 
         }
 
+
         @Override
         public int getItemViewType(int position) {
-            if (position == movies.size()) {
+            if (position == movieDataManage.movies.size()) {
                 return TYPE_FOOTER;
             }
             return TYPE_CONTENT;
@@ -177,34 +180,38 @@ public class gallery_moive extends Fragment {
 
         @Override
         public int getItemCount() {
-            return movies.size() + 1;
+            return movieDataManage.movies.size() + 1;
         }
 
         @Override
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewholder, final int position) {
             if (getItemViewType(position) == TYPE_FOOTER) {
                 FootViewHolder holder = (FootViewHolder) viewholder;
-                if (havenewmovie) {
+                // TODO: 2020/8/14
+
+                if (LoadFinish) {
                     holder.mLoadcomplere.setVisibility(LinearLayout.VISIBLE);
                     holder.mLoadmore.setVisibility(LinearLayout.INVISIBLE);
                 } else {
                     holder.mLoadcomplere.setVisibility(LinearLayout.INVISIBLE);
                     holder.mLoadmore.setVisibility(LinearLayout.VISIBLE);
+
                 }
 
 
             } else {
 
-                final Map movie = movies.get(position);
+                final Movie movie = movieDataManage.movies.get(position);
+
                 movieItemViewholder holder = (movieItemViewholder) viewholder;
-                holder.mMoivepic.setImageResource((int) movie.get("img"));
-                holder.mMoiveName.setText((String) movie.get("text"));
+                holder.mMoviePic.setImageResource(R.drawable.cover__1_);
+                holder.mMoiveName.setText(movie.getTitle());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
                         Bundle bundle = new Bundle();
-                        bundle.putInt("id", (int) movie.get("id"));
+                        bundle.putInt("id", movie.getId());
 //                    bundle.putInt("mode", 1);
                         navController.navigate(R.id.detailFragment, bundle);
 
@@ -215,24 +222,22 @@ public class gallery_moive extends Fragment {
 
         public class movieItemViewholder extends RecyclerView.ViewHolder {
 
-            public ImageView mMoivepic;
-            public TextView mMoiveName;
-            public TextView mTextView5;
-            public TextView mTextView6;
-            public TextView mTextView7;
-            public TextView mTextView10;
+
+            private ImageView mMoviePic;
+            private TextView mMoiveName;
+            private TextView mMovieScore;
+            private TextView mMovieArea;
+            private TextView mMovieReleasetime;
 
             public movieItemViewholder(@NonNull View itemView) {
                 super(itemView);
 
-                mMoivepic = itemView.findViewById(R.id.moviepic);
+
+                mMoviePic = itemView.findViewById(R.id.movie_pic);
                 mMoiveName = itemView.findViewById(R.id.moive_name);
-                mTextView5 = itemView.findViewById(R.id.textView5);
-                mTextView6 = itemView.findViewById(R.id.textView6);
-                mTextView7 = itemView.findViewById(R.id.textView7);
-                mTextView10 = itemView.findViewById(R.id.textView10);
-
-
+                mMovieScore = itemView.findViewById(R.id.movie_score);
+                mMovieArea = itemView.findViewById(R.id.movie_area);
+                mMovieReleasetime = itemView.findViewById(R.id.movie_releasetime);
             }
 
         }
@@ -256,7 +261,6 @@ public class gallery_moive extends Fragment {
             }
         }
     }
-
 }
 
 

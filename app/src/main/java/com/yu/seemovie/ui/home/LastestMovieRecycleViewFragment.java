@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,14 +14,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.yu.seemovie.DAO.IMovieDataLoad;
+import com.yu.seemovie.DAO.Movie;
 import com.yu.seemovie.DAO.MovieDAO;
+import com.yu.seemovie.DAO.MovieDataManage;
 import com.yu.seemovie.R;
 
-import java.util.List;
-import java.util.Map;
-
-public class RecycleViewFragment extends Fragment {
+public class LastestMovieRecycleViewFragment extends Fragment {
 
     private RecyclerView mRecycleview;
 
@@ -38,18 +36,28 @@ public class RecycleViewFragment extends Fragment {
 
         return view;
     }
+
 }
 
-class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.ViewHolder> {
+class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.ViewHolder> implements IMovieDataLoad {
 
 
-    List<Map<String, Object>> movies;
+//    List<Map<String, Object>> movies;
+//    List<Movie> movies;
 
+    //    MovieDAO moviedao;
+    MovieDataManage movieDataManage;
 
     MyRecycleViewAdapter(Context context) {
 
-        movies = new MovieDAO(context).getLastestMovies(5);
+//        movies = new MovieDAODB(context).getLastestMovies(5);
+//        movies=new Vector<Movie>();
+//         moviedao = new MovieDAO();
+        movieDataManage = new MovieDataManage(this);
+        MovieDAO.getLastestMovie(5, movieDataManage);
+//        movies=movieload.movies;
     }
+
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_home_moivelist_item, viewGroup, false);
         return new ViewHolder(v);
@@ -57,15 +65,16 @@ class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.Vie
 
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        final Map movie = movies.get(position);
-        holder.mImageView4.setImageResource((int) movie.get("img"));
-        holder.mTextView4.setText((String) movie.get("text"));
+        Movie movie = movieDataManage.movies.get(position);
+        holder.mImageView4.setImageResource(R.drawable.cover__1_);
+        holder.mTextView4.setText(movie.getTitle());
+        final int id = movie.getId();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavController navController = Navigation.findNavController(HomeFragment.activity, R.id.nav_host_fragment);
+                NavController navController = Navigation.findNavController(IndexFragment.activity, R.id.nav_host_fragment);
                 Bundle bundle = new Bundle();
-                bundle.putInt("id", (int) movie.get("id"));
+                bundle.putInt("id", id);
                 navController.navigate(R.id.detailFragment, bundle);
 
             }
@@ -75,7 +84,12 @@ class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.Vie
     public int getItemCount() {
         //  2020/6/29 已解决
 
-        return movies.size();
+        return movieDataManage.movies.size();
+    }
+
+    @Override
+    public void RefreshMovieData() {
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

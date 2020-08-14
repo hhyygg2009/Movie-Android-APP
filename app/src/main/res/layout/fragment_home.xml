@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".ui.home.IndexFragment">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.viewpager.widget.ViewPager
@@ -36,10 +36,10 @@
                     android:text="正在热播" />
 
                 <fragment
-                    android:id="@+id/fragment2"
-                    android:name="com.yu.seemovie.ui.home.RecycleViewFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                        android:id="@+id/fragment2"
+                        android:name="com.yu.seemovie.ui.home.LastestMovieRecycleViewFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
             </LinearLayout>
 
             <include

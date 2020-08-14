@@ -44,6 +44,9 @@
     <string name="clear">清空</string>
     <string name="exit">退出</string>
     <string name="bookcategory">请选择用户分类</string>
+    <string name="title">title</string>
+    <string name="score">score</string>
+    <string name="actor">actor</string>
     <string-array name="bookcategory1">
         <item>计算机</item>
         <item>生产</item>

@@ -7,11 +7,11 @@
 
 
     <ImageView
-        android:id="@+id/moviepic"
-        android:layout_width="300px"
-        android:layout_height="400px"
-        android:padding="10px"
-        app:srcCompat="@mipmap/ic_launcher" />
+            android:id="@+id/movie_pic"
+            android:layout_width="300px"
+            android:layout_height="400px"
+            android:padding="10px"
+            app:srcCompat="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,39 +20,31 @@
         android:padding="10px">
 
         <TextView
-            android:id="@+id/moive_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:id="@+id/moive_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
 
 
         <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="猫眼评分9.4" />
+                android:id="@+id/movie_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/score"/>
 
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="主演：肖央，谭卓" />
+                android:id="@+id/movie_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/actor"/>
 
         <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="免费试看" />
+                android:id="@+id/movie_releasetime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/price"/>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:text="播放" />
 
 
 </LinearLayout>
