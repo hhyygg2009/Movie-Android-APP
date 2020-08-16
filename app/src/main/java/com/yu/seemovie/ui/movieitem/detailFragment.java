@@ -2,7 +2,10 @@ package com.yu.seemovie.ui.movieitem;
 
 import android.os.Bundle;
 import android.view.*;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -11,8 +14,6 @@ import com.yu.seemovie.DAO.Movie;
 import com.yu.seemovie.DAO.MovieDAO;
 import com.yu.seemovie.DAO.MovieDataManage;
 import com.yu.seemovie.R;
-
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,11 +33,15 @@ public class detailFragment extends Fragment implements IMovieDataLoad {
     int position;
     private ImageView mMoivepic;
     private TextView mMoiveName;
-    private RatingBar mRatingBar;
+    private TextView mRatingBar;
     private Button mWant;
     private Button mRate;
-    private TextView mInfo;
+
     Movie movie;
+    private TextView mMovieArea;
+    private TextView mMovieReleasetime;
+    private TextView mMovieStory;
+    private TextView mMovieCategory;
 
     public detailFragment() {
         // Required empty public constructor
@@ -113,7 +118,15 @@ public class detailFragment extends Fragment implements IMovieDataLoad {
         movie = movieDataManage.movies.get(0);
         mMoiveName.setText(movie.getTitle());
         mMoivepic.setImageResource(R.drawable.cover__1_);
-        mInfo.setText(movie.getStory() != null ? movie.getStory() : "待补充...");
+
+        mRatingBar.setText(movie.getScore());
+        mMovieCategory.setText(movie.getClassid());
+        mMovieStory.setText(movie.getStory());
+        mMovieArea.setText(movie.getRegionid() + movie.getDuration());
+        mMovieReleasetime.setText(movie.getReleasetime());
+
+
+//        mRatingBar.setRating(new Random().nextFloat() * 5);
     }
 
     @Override
@@ -135,14 +148,16 @@ public class detailFragment extends Fragment implements IMovieDataLoad {
 
         mMoivepic = view.findViewById(R.id.movie_pic);
         mMoiveName = view.findViewById(R.id.moive_name);
-        mRatingBar = view.findViewById(R.id.movie_ratingBar);
+        mRatingBar = view.findViewById(R.id.movie_score);
 
         mWant = view.findViewById(R.id.btn_want);
         mRate = view.findViewById(R.id.btn_rate);
-        mInfo = view.findViewById(R.id.movie_story);
 
+        mMovieArea = view.findViewById(R.id.movie_area);
+        mMovieReleasetime = view.findViewById(R.id.movie_releasetime);
+        mMovieStory = view.findViewById(R.id.movie_story);
+        mMovieCategory = view.findViewById(R.id.movie_category);
 
-        mRatingBar.setRating(new Random().nextFloat() * 5);
         mRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,6 +183,8 @@ public class detailFragment extends Fragment implements IMovieDataLoad {
 
 
         return view;
+
+
     }
 
 }

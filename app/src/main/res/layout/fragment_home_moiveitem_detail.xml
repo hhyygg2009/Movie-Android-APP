@@ -15,70 +15,78 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="#888"
-                android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="#c0000000"
+                    android:orientation="vertical"
+                    >
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
                     <ImageView
                             android:id="@+id/movie_pic"
                             android:layout_width="120dp"
                             android:layout_height="160dp"
                             android:padding="10dp"
-                            app:srcCompat="@mipmap/ic_launcher" />
+                            app:srcCompat="@mipmap/ic_launcher"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="10dp">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="10dp">
 
                         <TextView
-                            android:id="@+id/moive_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="电影名称" />
-
-                        <RatingBar
-                                android:id="@+id/movie_ratingBar"
+                                android:id="@+id/moive_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:isIndicator="true" />
-
+                                android:text="@string/movie_name"
+                                android:textSize="36sp"
+                                android:textColor="#fff"/>
 
                         <TextView
                                 android:id="@+id/movie_score"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/movie_score"
+                                android:textColor="#fff"
+                                android:textSize="20sp"/>
+
+
+                        <TextView
+                                android:id="@+id/movie_category"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="剧情" />
+                                android:text="@string/movie_category"
+                                android:textColor="#fff"/>
 
                         <TextView
                                 android:id="@+id/movie_area"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="中国大陆/112分钟" />
+                                android:text="@string/regionduring"
+                                android:textColor="#fff"/>
 
                         <TextView
                                 android:id="@+id/movie_releasetime"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="2019-12-13大陆上映" />
+                                android:text="@string/release"
+                                android:textColor="#fff"/>
                     </LinearLayout>
 
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                     <Button
                             android:id="@+id/btn_want"
@@ -87,7 +95,7 @@
                             android:layout_weight="1"
                             android:drawableStart="@android:drawable/ic_dialog_info"
                             android:drawableLeft="@android:drawable/ic_dialog_info"
-                            android:text="想看" />
+                            android:text="想看"/>
 
                     <Button
                             android:id="@+id/btn_rate"
@@ -96,35 +104,36 @@
                             android:layout_weight="1"
                             android:drawableStart="@android:drawable/btn_star_big_off"
                             android:drawableLeft="@android:drawable/btn_star_big_off"
-                            android:text="评分" />
+                            android:text="评分"/>
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                 <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/line"
-                    android:drawableStart="@android:drawable/ic_menu_mylocation"
-                    android:drawableLeft="@android:drawable/ic_menu_mylocation"
-                    android:text="有一个彩蛋，在片尾字幕出现" />
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/line"
+                        android:drawableStart="@android:drawable/ic_menu_mylocation"
+                        android:drawableLeft="@android:drawable/ic_menu_mylocation"
+                        android:text="有一个彩蛋，在片尾字幕出现"/>
 
                 <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/line"
-                    android:drawableStart="@android:drawable/ic_media_play"
-                    android:drawableLeft="@android:drawable/ic_media_play"
-                    android:text="可在线播放" />
+                        android:id="@+id/textView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/line"
+                        android:drawableStart="@android:drawable/ic_media_play"
+                        android:drawableLeft="@android:drawable/ic_media_play"
+                        android:text="可在线播放"/>
             </LinearLayout>
 
             <TextView
@@ -133,7 +142,7 @@
                     android:layout_height="200dp"
                     android:layout_margin="5dp"
                     android:background="@drawable/line"
-                    android:text="美丽的云顶村，热情为民的年轻村长方春天，在筹备莅临本村的一场国际山地马拉松分站赛过程中，遇到..." />
+                    android:text="@string/movie_story"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,10 +152,10 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="演职人员" />
+                        android:id="@+id/title_actor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="演职人员" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"

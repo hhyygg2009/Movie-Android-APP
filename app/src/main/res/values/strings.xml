@@ -47,6 +47,12 @@
     <string name="title">title</string>
     <string name="score">score</string>
     <string name="actor">actor</string>
+    <string name="movie_name">电影名称</string>
+    <string name="movie_score">评分</string>
+    <string name="movie_category">分类</string>
+    <string name="regionduring">地区/时间</string>
+    <string name="release">上映时间</string>
+    <string name="movie_story">故事</string>
     <string-array name="bookcategory1">
         <item>计算机</item>
         <item>生产</item>

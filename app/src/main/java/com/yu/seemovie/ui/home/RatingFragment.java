@@ -75,7 +75,7 @@ public class RatingFragment extends Fragment {
         mMoivepic = view.findViewById(R.id.movie_pic);
         mMoiveName = view.findViewById(R.id.moive_name);
         mTextView3 = view.findViewById(R.id.tv_rating);
-        mRatingBar = view.findViewById(R.id.movie_ratingBar);
+        mRatingBar = view.findViewById(R.id.movie_score);
         mEditText = view.findViewById(R.id.editText);
         mPost = view.findViewById(R.id.post);
 

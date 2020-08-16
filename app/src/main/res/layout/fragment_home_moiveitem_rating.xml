@@ -40,7 +40,7 @@
                         android:text="期待您的打分" />
 
                 <RatingBar
-                        android:id="@+id/movie_ratingBar"
+                        android:id="@+id/movie_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

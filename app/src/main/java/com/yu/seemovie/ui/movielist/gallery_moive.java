@@ -235,7 +235,7 @@ public class gallery_moive extends Fragment implements IMovieDataLoad {
 
                 mMoviePic = itemView.findViewById(R.id.movie_pic);
                 mMoiveName = itemView.findViewById(R.id.moive_name);
-                mMovieScore = itemView.findViewById(R.id.movie_score);
+                mMovieScore = itemView.findViewById(R.id.movie_category);
                 mMovieArea = itemView.findViewById(R.id.movie_area);
                 mMovieReleasetime = itemView.findViewById(R.id.movie_releasetime);
             }
