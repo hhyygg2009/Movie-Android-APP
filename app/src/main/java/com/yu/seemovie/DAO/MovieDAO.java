@@ -5,9 +5,10 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 public class MovieDAO {
+    public static String rooturl = "http://192.168.1.192:8080/seemovieweb_war_exploded/";
+    public static String operurl = rooturl + "oper/";
+    public static String selecturl = operurl + "select";
 
-    static String operurl = "http://192.168.1.192:8080/seemovieweb_war_exploded/oper/";
-    static String selecturl = operurl + "select";
 
     public static void getSelectMovie(int start, int count, Callback.CommonCallback<String> callback) {
         RequestParams params = new RequestParams(selecturl);

@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import com.yu.seemovie.DAO.staticdata;
 import com.yu.seemovie.R;
 
@@ -27,6 +26,7 @@ public class IndexFragment extends Fragment {
     private ViewPager mHomeBanner;
     private TextView mTextView2;
     private RecyclerView mHomeMoiveList;
+    private RecyclerView mHomeLastestRecyclerview;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,12 +46,14 @@ public class IndexFragment extends Fragment {
 //        mHomeMoiveList = root.findViewById(R.id.home_moive_list);
 //        mTextView2 = getView().findViewById(R.id.textView2);
 //        mHomeMoiveList = getView().findViewById(R.id.home_moive_list);
-
-
+        mHomeLastestRecyclerview = root.findViewById(R.id.home_lastest_recyclerview);
+        mHomeLastestRecyclerview.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        mHomeLastestRecyclerview.setAdapter(new MyRecycleViewAdapter(getContext()));
         initView();
 
 
         return root;
+
 
     }
 

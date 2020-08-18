@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import com.bumptech.glide.Glide;
 import com.yu.seemovie.DAO.IMovieDataLoad;
 import com.yu.seemovie.DAO.Movie;
 import com.yu.seemovie.DAO.MovieDAO;
@@ -118,7 +119,9 @@ public class detailFragment extends Fragment implements IMovieDataLoad {
         movie = movieDataManage.movies.get(0);
         mMoiveName.setText(movie.getTitle());
         mMoivepic.setImageResource(R.drawable.cover__1_);
-
+        Glide.with(this)
+                .load(MovieDAO.rooturl + "upload/movie/cover/cover" + movie.getId() + ".jpg")
+                .into(mMoivepic);
         mRatingBar.setText(movie.getScore());
         mMovieCategory.setText(movie.getClassid());
         mMovieStory.setText(movie.getStory());

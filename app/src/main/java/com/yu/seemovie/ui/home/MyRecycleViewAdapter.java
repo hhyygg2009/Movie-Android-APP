@@ -7,39 +7,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.yu.seemovie.DAO.IMovieDataLoad;
 import com.yu.seemovie.DAO.Movie;
 import com.yu.seemovie.DAO.MovieDAO;
 import com.yu.seemovie.DAO.MovieDataManage;
 import com.yu.seemovie.R;
 
-public class LastestMovieRecycleViewFragment extends Fragment {
+//public class LastestMovieRecycleViewFragment extends Fragment {
+//
+//    private RecyclerView mRecycleview;
+//
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+//                             @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.recycleview, container, false);
+//
+//
+//        mRecycleview = view.findViewById(R.id.recycleview);
+//        mRecycleview.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+//        mRecycleview.setAdapter(new MyRecycleViewAdapter(getContext()));
+//
+//        return view;
+//    }
+//
+//}
 
-    private RecyclerView mRecycleview;
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.recycleview, container, false);
-
-
-        mRecycleview = view.findViewById(R.id.recycleview);
-        mRecycleview.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        mRecycleview.setAdapter(new MyRecycleViewAdapter(getContext()));
-
-        return view;
-    }
-
-}
-
-class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.ViewHolder> implements IMovieDataLoad {
+public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.ViewHolder> implements IMovieDataLoad {
 
 
 //    List<Map<String, Object>> movies;
@@ -47,9 +44,10 @@ class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.Vie
 
     //    MovieDAO moviedao;
     MovieDataManage movieDataManage;
+    Context context;
 
     MyRecycleViewAdapter(Context context) {
-
+        this.context = context;
 //        movies = new MovieDAODB(context).getLastestMovies(5);
 //        movies=new Vector<Movie>();
 //         moviedao = new MovieDAO();
@@ -67,6 +65,9 @@ class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.Vie
 
         Movie movie = movieDataManage.movies.get(position);
         holder.mImageView4.setImageResource(R.drawable.cover__1_);
+        Glide.with(context)
+                .load(MovieDAO.rooturl + "upload/movie/cover/cover" + movie.getId() + ".jpg")
+                .into(holder.mImageView4);
         holder.mTextView4.setText(movie.getTitle());
         final int id = movie.getId();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -97,12 +98,15 @@ class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.Vie
 
         private ImageView mImageView4;
         private TextView mTextView4;
+        private TextView mMovieTitle;
 
         public ViewHolder(View convertView) {
             super(convertView);
 
-            mImageView4 = convertView.findViewById(R.id.imageView4);
-            mTextView4 = convertView.findViewById(R.id.textView4);
+            mImageView4 = convertView.findViewById(R.id.movie_pic);
+            mTextView4 = convertView.findViewById(R.id.movie_title);
+
+
         }
     }
 }

@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.bumptech.glide.Glide;
 import com.yu.seemovie.DAO.IMovieDataLoad;
 import com.yu.seemovie.DAO.Movie;
 import com.yu.seemovie.DAO.MovieDAO;
@@ -205,6 +206,9 @@ public class gallery_moive extends Fragment implements IMovieDataLoad {
 
                 movieItemViewholder holder = (movieItemViewholder) viewholder;
                 holder.mMoviePic.setImageResource(R.drawable.cover__1_);
+                Glide.with(activity)
+                        .load(MovieDAO.rooturl + "upload/movie/cover/cover" + movie.getId() + ".jpg")
+                        .into(holder.mMoviePic);
                 holder.mMoiveName.setText(movie.getTitle());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
