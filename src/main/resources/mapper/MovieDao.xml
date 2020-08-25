@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bean.MovieDao">
+  <resultMap id="BaseResultMap" type="bean.Movie">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="score" jdbcType="VARCHAR" property="score" />
+    <result column="title_sub" jdbcType="VARCHAR" property="titleSub" />
+    <result column="story" jdbcType="VARCHAR" property="story" />
+    <result column="classid" jdbcType="VARCHAR" property="classid" />
+    <result column="releasetime" jdbcType="VARCHAR" property="releasetime" />
+    <result column="duration" jdbcType="VARCHAR" property="duration" />
+    <result column="regionid" jdbcType="VARCHAR" property="regionid" />
+    <result column="langid" jdbcType="VARCHAR" property="langid" />
+    <result column="custompicpos" jdbcType="VARCHAR" property="custompicpos" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, title, score, title_sub, story, classid, releasetime, duration, regionid, langid, 
+    custompicpos
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from movie
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectSection" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from movie
+    where TRUE
+    LIMIT #{param1},#{param2}
+
+  </select>
+
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from movie
+    where TRUE
+
+
+  </select>
+
+  <select id="selectLastest" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from movie
+    where TRUE
+    ORDER BY Id DESC
+    limit 0,#{count,jdbcType=INTEGER}
+
+  </select>
+
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from movie
+    where title=#{name,jdbcType=VARCHAR}
+
+  </select>
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from movie
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="bean.Movie" useGeneratedKeys="true">
+    insert into movie (title, score, title_sub, 
+      story, classid, releasetime, 
+      duration, regionid, langid, 
+      custompicpos)
+    values (#{title,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{titleSub,jdbcType=VARCHAR}, 
+      #{story,jdbcType=VARCHAR}, #{classid,jdbcType=VARCHAR}, #{releasetime,jdbcType=VARCHAR}, 
+      #{duration,jdbcType=VARCHAR}, #{regionid,jdbcType=VARCHAR}, #{langid,jdbcType=VARCHAR}, 
+      #{custompicpos,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="bean.Movie" useGeneratedKeys="true">
+    insert into movie
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="titleSub != null">
+        title_sub,
+      </if>
+      <if test="story != null">
+        story,
+      </if>
+      <if test="classid != null">
+        classid,
+      </if>
+      <if test="releasetime != null">
+        releasetime,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="regionid != null">
+        regionid,
+      </if>
+      <if test="langid != null">
+        langid,
+      </if>
+      <if test="custompicpos != null">
+        custompicpos,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="titleSub != null">
+        #{titleSub,jdbcType=VARCHAR},
+      </if>
+      <if test="story != null">
+        #{story,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null">
+        #{classid,jdbcType=VARCHAR},
+      </if>
+      <if test="releasetime != null">
+        #{releasetime,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="regionid != null">
+        #{regionid,jdbcType=VARCHAR},
+      </if>
+      <if test="langid != null">
+        #{langid,jdbcType=VARCHAR},
+      </if>
+      <if test="custompicpos != null">
+        #{custompicpos,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="bean.Movie">
+    update movie
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="titleSub != null">
+        title_sub = #{titleSub,jdbcType=VARCHAR},
+      </if>
+      <if test="story != null">
+        story = #{story,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null">
+        classid = #{classid,jdbcType=VARCHAR},
+      </if>
+      <if test="releasetime != null">
+        releasetime = #{releasetime,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="regionid != null">
+        regionid = #{regionid,jdbcType=VARCHAR},
+      </if>
+      <if test="langid != null">
+        langid = #{langid,jdbcType=VARCHAR},
+      </if>
+      <if test="custompicpos != null">
+        custompicpos = #{custompicpos,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="bean.Movie">
+    update movie
+    set title = #{title,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      title_sub = #{titleSub,jdbcType=VARCHAR},
+      story = #{story,jdbcType=VARCHAR},
+      classid = #{classid,jdbcType=VARCHAR},
+      releasetime = #{releasetime,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=VARCHAR},
+      regionid = #{regionid,jdbcType=VARCHAR},
+      langid = #{langid,jdbcType=VARCHAR},
+      custompicpos = #{custompicpos,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
