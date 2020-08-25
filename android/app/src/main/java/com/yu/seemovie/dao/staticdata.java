@@ -1,4 +1,4 @@
-package com.yu.seemovie.DAO;
+package com.yu.seemovie.dao;
 
 import com.yu.seemovie.R;
 

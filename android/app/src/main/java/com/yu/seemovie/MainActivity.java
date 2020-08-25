@@ -15,7 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.yu.seemovie.DAO.staticdata;
+import com.yu.seemovie.dao.staticdata;
 
 public class MainActivity extends AppCompatActivity {
 

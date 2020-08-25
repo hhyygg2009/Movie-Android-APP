@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import com.yu.seemovie.DAO.MovieDAODB;
+import com.yu.seemovie.dao.MovieDAODB;
 import com.yu.seemovie.R;
 
 import java.util.Map;

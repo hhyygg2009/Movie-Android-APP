@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.bumptech.glide.Glide;
-import com.yu.seemovie.DAO.IMovieDataLoad;
-import com.yu.seemovie.DAO.Movie;
-import com.yu.seemovie.DAO.MovieDAO;
-import com.yu.seemovie.DAO.MovieDataManage;
+import com.yu.seemovie.dao.IMovieDataLoad;
+import com.yu.seemovie.dao.Movie;
+import com.yu.seemovie.dao.MovieDAO;
+import com.yu.seemovie.dao.MovieDataManage;
 import com.yu.seemovie.R;
 
 /**

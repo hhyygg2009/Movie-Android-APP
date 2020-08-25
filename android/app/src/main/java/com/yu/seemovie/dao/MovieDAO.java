@@ -1,4 +1,4 @@
-package com.yu.seemovie.DAO;
+package com.yu.seemovie.dao;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;

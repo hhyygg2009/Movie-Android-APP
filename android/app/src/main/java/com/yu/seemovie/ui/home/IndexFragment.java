@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import com.yu.seemovie.DAO.staticdata;
+import com.yu.seemovie.dao.staticdata;
 import com.yu.seemovie.R;
 
 import java.util.List;
