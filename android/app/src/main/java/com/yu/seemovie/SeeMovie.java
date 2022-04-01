@@ -1,6 +1,7 @@
 package com.yu.seemovie;
 
 import android.app.Application;
+
 import org.xutils.x;
 
 public class SeeMovie extends Application {

@@ -7,11 +7,11 @@
 
 
     <ImageView
-            android:id="@+id/movie_pic"
-            android:layout_width="300px"
-            android:layout_height="400px"
-            android:padding="10px"
-            app:srcCompat="@mipmap/ic_launcher" />
+        android:id="@+id/movie_pic"
+        android:layout_width="300px"
+        android:layout_height="400px"
+        android:padding="10px"
+        app:srcCompat="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,30 +20,30 @@
         android:padding="10px">
 
         <TextView
-                android:id="@+id/moive_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+            android:id="@+id/moive_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
 
         <TextView
-                android:id="@+id/movie_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/score"/>
+            android:id="@+id/movie_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/score" />
 
         <TextView
-                android:id="@+id/movie_area"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/actor"/>
+            android:id="@+id/movie_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/actor" />
 
         <TextView
-                android:id="@+id/movie_releasetime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/price"/>
+            android:id="@+id/movie_releasetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/price" />
     </LinearLayout>
 
 

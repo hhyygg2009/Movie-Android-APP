@@ -21,10 +21,10 @@
 
 
             <TextView
-                    android:id="@+id/tv_user_head"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="我的" />
+                android:id="@+id/tv_user_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="我的" />
 
             <LinearLayout
                 android:id="@+id/layout_userpanel"
@@ -35,10 +35,10 @@
                 android:padding="30dp">
 
                 <ImageView
-                        android:id="@+id/user_pic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/sym_def_app_icon" />
+                    android:id="@+id/user_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/sym_def_app_icon" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -47,16 +47,16 @@
                     android:padding="10dp">
 
                     <TextView
-                            android:id="@+id/user_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="hhyygg" />
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="hhyygg" />
 
                     <TextView
-                            android:id="@+id/tv_user1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="点我修改头像" />
+                        android:id="@+id/tv_user1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="点我修改头像" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -6,10 +6,10 @@
     app:startDestination="@+id/nav_home">
 
     <fragment
-            android:id="@+id/nav_home"
-            android:name="com.yu.seemovie.ui.home.IndexFragment"
-            android:label="@string/menu_home"
-            tools:layout="@layout/fragment_home">
+        android:id="@+id/nav_home"
+        android:name="com.yu.seemovie.view.home.IndexFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
 
 
     </fragment>
@@ -17,50 +17,50 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.yu.seemovie.ui.movielist.GalleryFragment"
+        android:name="com.yu.seemovie.view.movielist.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.yu.seemovie.ui.user.SlideshowFragment"
+        android:name="com.yu.seemovie.view.user.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow_my" />
     <fragment
-            android:id="@+id/recycleViewFragment"
-            android:name="com.yu.seemovie.ui.home.LastestMovieRecycleViewFragment"
-            android:label="fragment_recycle_view"
-            tools:layout="@layout/recycleview" />
+        android:id="@+id/recycleViewFragment"
+        android:name="com.yu.seemovie.view.home.IndexFragment"
+        android:label="fragment_recycle_view"
+        tools:layout="@layout/recycleview" />
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.yu.seemovie.ui.movieitem.detailFragment"
+        android:name="com.yu.seemovie.view.movieitem.detailFragment"
         android:label="detailFragment" />
     <fragment
         android:id="@+id/ratingFragment"
-        android:name="com.yu.seemovie.ui.home.RatingFragment"
+        android:name="com.yu.seemovie.view.home.RatingFragment"
         android:label="RatingFragment" />
     <fragment
         android:id="@+id/gallery_moive"
-        android:name="com.yu.seemovie.ui.movielist.gallery_moive"
+        android:name="com.yu.seemovie.view.movielist.galleryMoive"
         android:label="gallery_moive" />
     <fragment
         android:id="@+id/addMoiveFragment"
-        android:name="com.yu.seemovie.ui.movieitem.AddMovieFragment"
+        android:name="com.yu.seemovie.view.movieitem.AddMovieFragment"
         android:label="AddMoiveFragment" />
     <fragment
         android:id="@+id/appinfo"
-        android:name="com.yu.seemovie.ui.common.appinfo"
+        android:name="com.yu.seemovie.view.common.appinfo"
         android:label="appinfo" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.yu.seemovie.ui.user.LoginFragment"
+        android:name="com.yu.seemovie.view.user.LoginFragment"
         android:label="LoginFragment" />
     <fragment
         android:id="@+id/bannerDetail"
-        android:name="com.yu.seemovie.ui.home.bannerDetail"
+        android:name="com.yu.seemovie.view.home.bannerDetail"
         android:label="bannerDetail" />
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.yu.seemovie.ui.user.UserFragment"
+        android:name="com.yu.seemovie.view.user.UserFragment"
         android:label="UserFragment" />
 </navigation>

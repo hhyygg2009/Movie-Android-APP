@@ -61,11 +61,11 @@
             android:layout_height="wrap_content">
 
             <TextView
-                    android:id="@+id/movie_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/publishertime"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:id="@+id/movie_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/publishertime"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/publishertime"
@@ -86,11 +86,11 @@
             android:layout_height="37dp">
 
             <TextView
-                    android:id="@+id/movie_releasetime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/category1"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:id="@+id/movie_releasetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category1"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
                 android:id="@+id/category1"
@@ -147,11 +147,11 @@
             android:layout_height="wrap_content">
 
             <TextView
-                    android:id="@+id/title_actor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bookintroduce"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:id="@+id/title_actor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bookintroduce"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/bookintroduce"
